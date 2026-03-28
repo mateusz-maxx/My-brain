@@ -1,454 +1,646 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const NOTES = {
   welcome: {
-    id: "welcome",
-    title: "Welcome",
-    icon: "✦",
-    section: null,
-    content: `# Welcome!
+    id: "welcome", title: "Welcome", icon: "✦", section: null,
+    content: `# Welcome to my second brain.
 
-Hello! Welcome to my digital garden. I write on Obsidian and sometimes publish them here.
+I'm **Maxx Yung** — builder, researcher, writer. I think a lot about neuroscience, venture, and the compounding nature of everything.
 
-## Lists
+This is my digital garden. Not a polished blog — a living, interconnected map of everything I'm learning and thinking about.
 
-Here's all the lists I have, but here are the most useful ones:
-→ [[advice]] — Advice I've collected
-→ [[apps]] — Productivity apps I recommend
-→ [[email]] — Email advice
-→ [[books]] — Books I track and recommend
+---
 
-## Venture
+## Explore
 
-My company memos for Contrary Research.
-→ [[venture]] — I write about venture sometimes
+→ [[advice]] — Principles I've collected from mentors, books, and mistakes
+→ [[email]] — How to write emails that get replies
+→ [[books]] — Books that rewired my thinking
+→ [[school_rec]] — My #1 recommendation for school
+→ [[best_classes]] — The classes actually worth taking
+→ [[school_lessons]] — Lessons from the classroom and beyond
+→ [[school_takeaways]] — Key takeaways from my education
+→ [[work]] — My work experience and what I've learned
+→ [[ai]] — Thoughts on artificial intelligence
+→ [[life]] — Reflections on life in general
 
-## Blog
+---
 
-I mostly write random personal blogs though.
-→ [[blog]] — Personal essays and thoughts
+> The best time to plant a tree was 20 years ago. The second best time is now.
 
-I read a lot of books, which I track in [[books]]. Here are my favorite books there.`,
-    connections: ["advice", "apps", "email", "books", "venture", "blog"],
+Click any golden link to jump between ideas.`,
+    connections: ["advice", "email", "books", "school_rec", "best_classes", "school_lessons", "school_takeaways", "work", "ai", "life"],
   },
   advice: {
-    id: "advice",
-    title: "List of Advice",
-    icon: "◇",
-    section: "lists",
+    id: "advice", title: "Advice", icon: "◇", section: "lists",
     content: `# List of Advice
 
-[Paste your full advice content from brain.maxxyung.com/lists/advice here]
+A running collection of principles from mentors, books, mistakes, and quiet observation.
 
-## Placeholder sections to replace:
+---
 
-### On Compounding
+## On Compounding
+
 Compounding growth is said to be the 8th wonder of the world. Find and leverage compound interest patterns everywhere.
 
-Compounding activities: Reading, Writing on the internet, Altruistically helping others, Exercising, Sleeping for at least 7 hours.
+Compounding activities so far: Reading — one hour can change the direction of your life. Writing on the internet. Altruistically helping others. Exercising, even 15 minutes a day. Sleeping for at least 7 hours.
 
-### On Generalism vs. Specialism
-As problems in the world grow in complexity, generality is more important than specialty. Aim to be the best at a field (top 5%). At that point, diminishing returns kick in, and focus on being good (top 10%) at several other fields.
-
-### On Luck Surface Area
-Writing online is one way to expand your luck potential. Take risks. Do what you're afraid of. Help others. Talk with professionals. Travel for conferences. Do hackathons. Connect people with other people.
-
-### On Saying No
-If anything isn't a fuck yeah, it's a no. Be open for a hard life-changing opportunity rather than filling your time with easier and smaller ones.
-
-### On University
-Spend as little time to get ~3.6 GPA and spend the rest of your time in research or independent projects. Blog. Make videos. Program random things.
-
-### On Networking
-Real networks are built from genuine, non-networking intentions. AKA, make friends.
-
-### On the Hard Path
-Do things not because they are easy, but because they are hard. When you look back, it is the hardest days that define you, not the easy or ordinary days.
+See [[books]] for what sharpened these ideas.
 
 ---
 
-*Replace this with the full content from the original site.*`,
-    connections: ["welcome", "books", "blog", "venture"],
-  },
-  apps: {
-    id: "apps",
-    title: "List of Productivity Apps",
-    icon: "⬡",
-    section: "lists",
-    content: `# List of Productivity Apps
+## On Generalism vs. Specialism
 
-[Paste your full apps list from brain.maxxyung.com/lists/apps here]
+As problems grow in complexity, generality matters more than specialty. Problems now exist at the intersection of multiple fields.
 
-## Placeholder — apps mentioned on the original site:
-
-- **Raindrop** — Bookmarks, references, and cool websites
-- **DeepL** — Better translations than Google
-- **AltTab** — Windows-style alt-tabbing for MacOS
-- **BatFi** — Limit MacOS battery to 80% for longevity
-- **Draw.io** — Free collaborative diagramming software
-- **PDFGear** — All-in-one PDF tool
-- **Latest** — Keeps all your apps updated
-- **SoulSeekQT** — P2P hi-res music downloads
-- **Grammarly** — Grammar and spell checker
-- **HandBrake** — Video format conversion
-- **AppCleaner** — Thorough app uninstaller
-- **MacWhisper** — Audio transcription
-- **Command X** — Cut and paste files on Mac like Windows
+My advice: aim to be the best at one field (top 5%). Then be good (top 10%) at several others. The combinations are where the magic happens.
 
 ---
 
-*Replace this with the full content from the original site.*`,
-    connections: ["welcome", "advice"],
+## On Luck Surface Area
+
+Writing online expands your luck potential. But there are many paths: take risks, help others, talk with professionals, travel for conferences, do hackathons, connect people. Practice being charismatic. Follow up.
+
+Don't confine your luck potential to a recruiter taking interest in your 4.0. Build surface area, then capitalize on it. Be competent. Be serious about something. Go deep.
+
+---
+
+## On Saying No
+
+If it's not a fuck yeah, it's a no. Be open for hard, life-changing opportunities rather than filling time with easier, smaller ones.
+
+The hardest days define you — not the easy or ordinary ones. Do things not because they are easy, but because they are hard.
+
+---
+
+## On Advice Itself
+
+Sometimes conflicting advice tells you that advice is only useful with lived experience and certain priors about the world. But you should still consider my advice seriously!
+
+---
+
+*This page is a living document. I add to it whenever something clicks.*`,
+    connections: ["welcome", "books", "work", "life"],
   },
   email: {
-    id: "email",
-    title: "List of Email Advice",
-    icon: "▣",
-    section: "lists",
+    id: "email", title: "Email Advice", icon: "▣", section: "lists",
     content: `# List of Email Advice
 
-[Paste your full email advice from brain.maxxyung.com/lists/email here]
-
-## Placeholder — key points from the original:
-
-- Frame questions so the responder only needs a "Yes or no"
-- Reduce friction for the person replying
-- Batch check your emails — once an hour for urgent, set time for the rest
-- Any email you've written twice to answer someone should be a blog post
+How to write emails that actually get replies.
 
 ---
 
-*Replace this with the full content from the original site.*`,
+## Core Principles
+
+Frame your questions so the responder only needs a "Yes or no." Reduce friction for the person replying.
+
+Don't ask: "I'm lost, where do I begin!"
+Instead ask: "Here's what I've brainstormed as a solution — is this the right path?"
+
+---
+
+## Workflow
+
+Batch check your emails. Check once an hour and process urgent ones ASAP. Delegate everything else to a set time later.
+
+Any email you've written twice to answer someone should be a blog post.
+
+---
+
+*More email wisdom incoming.*`,
     connections: ["welcome", "advice"],
   },
   books: {
-    id: "books",
-    title: "Book Shelf",
-    icon: "▢",
-    section: "lists",
+    id: "books", title: "Book Shelf", icon: "▢", section: "lists",
     content: `# Book Shelf
 
-[Paste your full book list and reviews from brain.maxxyung.com here]
-
-I read a lot of books and track them here. Below are my favorites.
-
-## How to use this page
-List your books with short takes on each one, organized by category. The original site links to individual book notes — you can add those as wiki-links like [[bookname]] once you create separate note pages for them.
+Books that rewired my thinking. I don't list books I didn't finish or enjoy — life's too short.
 
 ---
 
-*Replace this with the full content from the original site.*`,
-    connections: ["welcome", "advice", "blog"],
+## How I Read
+
+I try to read 30 minutes before sleep and 2–3 hours of blogs and essays online. The best books change what you *do*, not just what you *think*.
+
+---
+
+## Favorites
+
+[Add your full book list and notes from brain.maxxyung.com here]
+
+Each book can be its own note — link with [[wikilinks]] for individual reviews and takeaways.
+
+See [[advice]] for how reading compounds.
+
+---
+
+*This shelf grows. Check back.*`,
+    connections: ["welcome", "advice", "life"],
   },
-  venture: {
-    id: "venture",
-    title: "Venture Writing",
-    icon: "◈",
-    section: "venture",
-    content: `# Venture Writing
+  school_rec: {
+    id: "school_rec", title: "My #1 Recommendation", icon: "★", section: "school",
+    content: `# My #1 Recommendation to Do at School
 
-Company memos for Contrary Research and other venture thoughts.
-
-## Company Memos
-[Paste links/content for your Contrary Research memos here]
-
-Written about: Cerebras Systems, Lightmatter, Varda, Groq, PsiQuantum, SpaceX, and a deep-dive on Intel (featured on the Arena Magazine and the TBPN podcast).
-
-## Venture Essays
-[Add your venture blog posts here — each one can be its own note page linked with [[wikilinks]]]
+[Write your single most important recommendation for students here]
 
 ---
 
-*Replace this with the full content from the original site.*`,
-    connections: ["welcome", "blog"],
+This is the one thing I wish someone told me on day one.
+
+See [[school_lessons]] and [[best_classes]] for more.
+
+---
+
+*Your top advice for anyone starting school.*`,
+    connections: ["welcome", "best_classes", "school_lessons", "school_takeaways"],
   },
-  blog: {
-    id: "blog",
-    title: "Personal Blog",
-    icon: "◆",
-    section: "blog",
-    content: `# Personal Blog
+  best_classes: {
+    id: "best_classes", title: "Best Classes", icon: "◈", section: "school",
+    content: `# Best Classes
 
-Random personal blogs and essays.
-
-## Posts
-→ [[countersignaling]] — On status signaling, Dyson, Hermès, and consumer psychology
-→ [Add more blog posts as separate notes]
+The classes that were actually worth waking up for.
 
 ---
 
-*Add your blog post index here. Each post can be its own note linked with [[wikilinks]].*`,
-    connections: ["welcome", "advice", "venture", "countersignaling"],
+## Criteria
+
+I rate classes on three things: the professor, how interesting the topic is, and how much it changed how I think.
+
+---
+
+## The List
+
+[Add your best classes here — name, professor, and why it mattered]
+
+---
+
+See [[school_lessons]] for what I learned beyond the curriculum.
+
+*I'll keep adding as I take more.*`,
+    connections: ["welcome", "school_rec", "school_lessons", "school_takeaways"],
   },
-  countersignaling: {
-    id: "countersignaling",
-    title: "Countersignaling",
-    icon: "◇",
-    section: "blog",
-    content: `# Countersignaling
+  school_lessons: {
+    id: "school_lessons", title: "Lessons", icon: "◇", section: "school",
+    content: `# Lessons from School
 
-[Paste your full Countersignaling essay from brain.maxxyung.com/blog/personal/countersignaling here]
-
-## Placeholder summary:
-
-This essay explores consumer psychology, status signaling vs. countersignaling, and why brands like Dyson and Hermès succeed despite seemingly irrational consumer behavior.
-
-Key ideas:
-- Humans are innately status hoarders and observers
-- "Luxury" brands have scaled themselves out of true scarcity
-- Depending on the person, one tends to either signal or countersignal their status
-- The biggest skill in consumer startups is good taste
+What school actually taught me — and what it didn't.
 
 ---
 
-*Replace this with the full essay from the original site.*`,
-    connections: ["blog", "advice"],
+## The Real Education
+
+The textbooks are fine. The case studies are useful. But the real education is the people. You learn more from a 30-minute conversation with a classmate who built a company than from a semester of theory.
+
+---
+
+## What They Don't Teach
+
+Resilience. Taste. When to quit. How to manage your own psychology. How to sit with ambiguity. The soft stuff is the hard stuff.
+
+---
+
+## On GPA
+
+Spend as little time as needed to get ~3.6 GPA and spend the rest of your time on research or independent projects. Blog. Make videos. Program random things.
+
+See [[advice]] for more on this.
+
+---
+
+*More lessons as I reflect on the experience.*`,
+    connections: ["welcome", "school_rec", "best_classes", "school_takeaways", "advice"],
+  },
+  school_takeaways: {
+    id: "school_takeaways", title: "Key Takeaways", icon: "△", section: "school",
+    content: `# Key Takeaways
+
+The distilled, most important things from my time in school.
+
+---
+
+## Top Takeaways
+
+[Add your key takeaways here — the things you'd tell your younger self]
+
+---
+
+See [[school_rec]] for the #1 thing, and [[school_lessons]] for the full story.
+
+*Condensed wisdom. No fluff.*`,
+    connections: ["welcome", "school_rec", "best_classes", "school_lessons"],
+  },
+  work: {
+    id: "work", title: "Work Experience", icon: "⬡", section: "work",
+    content: `# Work Experience
+
+What I've built, where I've worked, and what I learned along the way.
+
+---
+
+## Current
+
+[Your current role and what you're working on]
+
+---
+
+## Previous
+
+[Previous roles — what you shipped, built, or led]
+
+---
+
+## Lessons from Work
+
+The real world doesn't grade on a curve.
+
+Speed wins. A fast 80% solution beats a slow 100% one. Perfectionism is procrastination in a nice outfit.
+
+Communication is the meta-skill. The best idea in the room means nothing if you can't articulate it.
+
+Ownership changes everything. The moment you stop thinking "that's not my job" is the moment you start growing.
+
+See [[advice]] for more principles.
+
+---
+
+*I update this when something meaningful happens.*`,
+    connections: ["welcome", "advice", "ai", "life"],
+  },
+  ai: {
+    id: "ai", title: "AI", icon: "◆", section: "ai",
+    content: `# AI
+
+My thoughts on artificial intelligence — where it's going, what matters, and what I'm paying attention to.
+
+---
+
+## What I'm Thinking About
+
+[Add your AI thoughts, essays, and observations here]
+
+---
+
+## Resources
+
+[Links, papers, tools, and people worth following in AI]
+
+---
+
+See [[work]] for how AI connects to what I'm building, and [[books]] for related reading.
+
+*This section will grow fast.*`,
+    connections: ["welcome", "work", "books", "life"],
+  },
+  life: {
+    id: "life", title: "Life", icon: "☉", section: "life",
+    content: `# Life
+
+Reflections on living — the stuff that doesn't fit neatly into a category.
+
+---
+
+## On Purpose
+
+[Your thoughts on purpose, meaning, and direction]
+
+---
+
+## On Relationships
+
+[What you've learned about people]
+
+---
+
+## On Health
+
+[Physical and mental health reflections]
+
+---
+
+## On Time
+
+[How you think about time, priorities, and what matters]
+
+---
+
+See [[advice]] for collected principles, and [[books]] for what shaped these ideas.
+
+*The most important section. Updated whenever something clicks.*`,
+    connections: ["welcome", "advice", "books", "work"],
   },
 };
 
-// ── Graph View Component ──
-function GraphView({ notes, currentNote, onNavigate }) {
-  const canvasRef = useRef(null);
-  const animRef = useRef(null);
-  const nodesRef = useRef([]);
-  const [hovered, setHovered] = useState(null);
-
-  const initNodes = useCallback(() => {
-    const keys = Object.keys(notes);
-    const cx = 300, cy = 200;
-    return keys.map((k, i) => {
-      const angle = (i / keys.length) * Math.PI * 2 - Math.PI / 2;
-      const r = k === "welcome" ? 0 : 120 + Math.random() * 40;
-      return { id: k, x: cx + (k === "welcome" ? 0 : Math.cos(angle) * r), y: cy + (k === "welcome" ? 0 : Math.sin(angle) * r), label: notes[k].title };
-    });
-  }, [notes]);
-
-  useEffect(() => { nodesRef.current = initNodes(); }, [initNodes]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = 600 * dpr; canvas.height = 400 * dpr; ctx.scale(dpr, dpr);
-    const edges = [];
-    Object.values(notes).forEach(n => { n.connections.forEach(c => { const pair = [n.id, c].sort().join("-"); if (!edges.find(e => e.pair === pair)) edges.push({ pair, from: n.id, to: c }); }); });
-    let time = 0;
-    const draw = () => {
-      time += 0.008;
-      const nodes = nodesRef.current;
-      const s = getComputedStyle(document.documentElement);
-      const bg = s.getPropertyValue("--bg-primary").trim(), textCol = s.getPropertyValue("--text-primary").trim(), mutedCol = s.getPropertyValue("--text-muted").trim(), accentCol = s.getPropertyValue("--accent").trim();
-      ctx.clearRect(0, 0, 600, 400); ctx.fillStyle = bg; ctx.fillRect(0, 0, 600, 400);
-      edges.forEach(e => {
-        const a = nodes.find(n => n.id === e.from), b = nodes.find(n => n.id === e.to);
-        if (!a || !b) return;
-        const isActive = currentNote === e.from || currentNote === e.to;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = isActive ? accentCol : mutedCol; ctx.globalAlpha = isActive ? 0.6 : 0.15; ctx.lineWidth = isActive ? 1.5 : 1; ctx.stroke(); ctx.globalAlpha = 1;
-      });
-      nodes.forEach(node => {
-        const isCurrent = node.id === currentNote, isHov = node.id === hovered, isConnected = notes[currentNote]?.connections.includes(node.id);
-        const baseR = node.id === "welcome" ? 8 : 5, pulse = isCurrent ? Math.sin(time * 3) * 2 : 0, r = baseR + pulse + (isHov ? 3 : 0);
-        ctx.beginPath(); ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
-        if (isCurrent) { ctx.fillStyle = accentCol; ctx.shadowColor = accentCol; ctx.shadowBlur = 12; }
-        else if (isConnected) { ctx.fillStyle = accentCol; ctx.globalAlpha = 0.7; ctx.shadowBlur = 0; }
-        else { ctx.fillStyle = mutedCol; ctx.globalAlpha = 0.4; ctx.shadowBlur = 0; }
-        ctx.fill(); ctx.globalAlpha = 1; ctx.shadowBlur = 0;
-        ctx.font = `${isCurrent || isHov ? "600" : "400"} 11px 'IBM Plex Mono', monospace`;
-        ctx.fillStyle = isCurrent || isConnected ? textCol : mutedCol;
-        ctx.globalAlpha = isCurrent || isConnected || isHov ? 1 : 0.5;
-        ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y + r + 14); ctx.globalAlpha = 1;
-      });
-      animRef.current = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => cancelAnimationFrame(animRef.current);
-  }, [notes, currentNote, hovered]);
-
-  const getNode = (e) => { const rect = canvasRef.current.getBoundingClientRect(); const x = (e.clientX - rect.left) * (600 / rect.width), y = (e.clientY - rect.top) * (400 / rect.height); return nodesRef.current.find(n => Math.hypot(n.x - x, n.y - y) < 20); };
-
-  return <canvas ref={canvasRef} onClick={e => { const n = getNode(e); if (n) onNavigate(n.id); }} onMouseMove={e => { const n = getNode(e); setHovered(n?.id || null); canvasRef.current.style.cursor = n ? "pointer" : "default"; }} style={{ width: "100%", maxWidth: 600, height: "auto", aspectRatio: "3/2", borderRadius: 8, border: "1px solid var(--border)" }} />;
+// ── Helpers ──
+function extractHeadings(content) {
+  return content.split("\n").filter(l => l.startsWith("## ")).map((l, i) => ({
+    id: `h-${i}`, text: l.replace(/^## /, "").replace(/\*\*/g, ""),
+  }));
 }
 
 // ── Markdown Renderer ──
 function renderContent(text, onNavigate) {
+  let h2Count = 0;
   return text.split("\n").map((line, i) => {
-    const parseLine = (str) => {
+    const parse = (str) => {
       const parts = []; let last = 0; const reg = /\[\[(\w+)\]\]/g; let m;
-      while ((m = reg.exec(str)) !== null) {
-        if (m.index > last) parts.push(renderInline(str.slice(last, m.index)));
-        const id = m[1], note = NOTES[id];
-        parts.push(<a key={`${i}-${m.index}`} onClick={() => onNavigate(id)} className="wiki-link">{note ? note.title : id}</a>);
-        last = reg.lastIndex;
-      }
-      if (last < str.length) parts.push(renderInline(str.slice(last)));
-      return parts;
-    };
-    const renderInline = (s) => {
-      const parts = []; let r = s, k = 0;
-      while (r.length > 0) {
-        const b = r.match(/\*\*(.+?)\*\*/), it = r.match(/\*(.+?)\*/), c = r.match(/`(.+?)`/);
-        let first = null, idx = r.length;
-        if (b && b.index < idx) { first = "b"; idx = b.index; }
-        if (it && it.index < idx) { first = "i"; idx = it.index; }
-        if (c && c.index < idx) { first = "c"; idx = c.index; }
-        if (!first) { parts.push(r); break; }
-        if (idx > 0) parts.push(r.slice(0, idx));
-        if (first === "b") { parts.push(<strong key={k++}>{b[1]}</strong>); r = r.slice(idx + b[0].length); }
-        else if (first === "i") { parts.push(<em key={k++}>{it[1]}</em>); r = r.slice(idx + it[0].length); }
-        else { parts.push(<code key={k++} className="inline-code">{c[1]}</code>); r = r.slice(idx + c[0].length); }
-      }
-      return parts;
-    };
-    if (line.startsWith("# ")) return <h1 key={i} className="md-h1">{parseLine(line.slice(2))}</h1>;
-    if (line.startsWith("## ")) return <h2 key={i} className="md-h2">{parseLine(line.slice(3))}</h2>;
-    if (line.startsWith("### ")) return <h3 key={i} className="md-h3">{parseLine(line.slice(4))}</h3>;
-    if (line.startsWith("> ")) return <blockquote key={i} className="md-quote">{parseLine(line.slice(2))}</blockquote>;
+      while ((m = reg.exec(str)) !== null) { if (m.index > last) parts.push(inl(str.slice(last, m.index))); const id = m[1], note = NOTES[id];
+        parts.push(<a key={`${i}-${m.index}`} onClick={() => onNavigate(id)} className="wiki-link">{note ? note.title : id}</a>); last = reg.lastIndex; }
+      if (last < str.length) parts.push(inl(str.slice(last))); return parts; };
+    const inl = (s) => { const p = []; let r = s, k = 0; while (r.length > 0) { const b = r.match(/\*\*(.+?)\*\*/), it = r.match(/\*(.+?)\*/);
+        let f = null, idx = r.length; if (b && b.index < idx) { f = "b"; idx = b.index; } if (it && it.index < idx) { f = "i"; idx = it.index; }
+        if (!f) { p.push(r); break; } if (idx > 0) p.push(r.slice(0, idx));
+        if (f === "b") { p.push(<strong key={k++}>{b[1]}</strong>); r = r.slice(idx + b[0].length); } else { p.push(<em key={k++}>{it[1]}</em>); r = r.slice(idx + it[0].length); } } return p; };
+    if (line.startsWith("# ")) return <h1 key={i} className="md-h1">{parse(line.slice(2))}</h1>;
+    if (line.startsWith("## ")) { const hid = `h-${h2Count++}`; return <h2 key={i} className="md-h2" id={hid}>{parse(line.slice(3))}</h2>; }
+    if (line.startsWith("### ")) return <h3 key={i} className="md-h3">{parse(line.slice(4))}</h3>;
+    if (line.startsWith("> ")) return <blockquote key={i} className="md-quote">{parse(line.slice(2))}</blockquote>;
     if (line.startsWith("---")) return <hr key={i} className="md-hr" />;
-    if (line.startsWith("- ")) return <div key={i} className="md-li">{parseLine(line.slice(2))}</div>;
-    if (line.startsWith("→ ")) return <div key={i} className="md-arrow">{parseLine(line.slice(2))}</div>;
+    if (line.startsWith("- ")) return <div key={i} className="md-li">{parse(line.slice(2))}</div>;
+    if (line.startsWith("→ ")) return <div key={i} className="md-arrow">{parse(line.slice(2))}</div>;
     if (line.trim() === "") return <div key={i} className="md-spacer" />;
-    return <p key={i} className="md-p">{parseLine(line)}</p>;
+    return <p key={i} className="md-p">{parse(line)}</p>;
   });
 }
 
-// ── Main App ──
+// ── Newsletter + Contact Footer ──
+function PageFooter() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  return (
+    <div className="page-footer">
+      <div className="newsletter">
+        <div className="newsletter-badge">✦ Newsletter</div>
+        <h3 className="newsletter-title">Stay in the loop</h3>
+        <p className="newsletter-desc">I send occasional emails about what I'm learning, building, and thinking about. No spam, unsubscribe anytime.</p>
+        {subscribed ? (
+          <div className="newsletter-success">
+            <span className="newsletter-check">✓</span> You're in! Check your inbox to confirm.
+          </div>
+        ) : (
+          <div className="newsletter-form">
+            <input className="newsletter-input" type="email" placeholder="your@email.com" value={email} onChange={e => setEmail(e.target.value)} />
+            <button className="newsletter-btn" onClick={() => { if (email.includes("@")) setSubscribed(true); }}>Subscribe</button>
+          </div>
+        )}
+      </div>
+
+      <div className="contact">
+        <div className="contact-line" />
+        <h3 className="contact-title">Contact Me</h3>
+        <p className="contact-desc">Want to chat, collaborate, or just say hi?</p>
+        <div className="contact-links">
+          <a className="contact-link" href="https://twitter.com/maxxyung" target="_blank" rel="noopener noreferrer">𝕏 Twitter</a>
+          <a className="contact-link" href="https://linkedin.com/in/maxxyung" target="_blank" rel="noopener noreferrer">in LinkedIn</a>
+          <a className="contact-link" href="mailto:hello@maxxyung.com">✉ Email</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main ──
 export default function DigitalGarden() {
   const [currentNote, setCurrentNote] = useState("welcome");
   const [dark, setDark] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [showGraph, setShowGraph] = useState(false);
   const [history, setHistory] = useState(["welcome"]);
   const [historyIdx, setHistoryIdx] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({ lists: true, school: true, work: true, ai: true, life: true });
   const contentRef = useRef(null);
 
-  const navigate = (id) => {
-    if (!NOTES[id]) return;
-    const nh = [...history.slice(0, historyIdx + 1), id];
-    setHistory(nh); setHistoryIdx(nh.length - 1); setCurrentNote(id);
-    contentRef.current?.scrollTo(0, 0);
-  };
-  const goBack = () => { if (historyIdx > 0) { setHistoryIdx(historyIdx - 1); setCurrentNote(history[historyIdx - 1]); } };
-  const goForward = () => { if (historyIdx < history.length - 1) { setHistoryIdx(historyIdx + 1); setCurrentNote(history[historyIdx + 1]); } };
+  const navigate = useCallback((id) => {
+    if (!NOTES[id] || id === currentNote) return;
+    setTransitioning(true);
+    setTimeout(() => {
+      const nh = [...history.slice(0, historyIdx + 1), id];
+      setHistory(nh); setHistoryIdx(nh.length - 1); setCurrentNote(id);
+      contentRef.current?.scrollTo(0, 0);
+      setTimeout(() => setTransitioning(false), 20);
+    }, 180);
+  }, [currentNote, history, historyIdx]);
+
+  const goBack = () => { if (historyIdx > 0) { const ni = historyIdx - 1; setTransitioning(true); setTimeout(() => { setHistoryIdx(ni); setCurrentNote(history[ni]); setTimeout(() => setTransitioning(false), 20); }, 180); } };
+  const goForward = () => { if (historyIdx < history.length - 1) { const ni = historyIdx + 1; setTransitioning(true); setTimeout(() => { setHistoryIdx(ni); setCurrentNote(history[ni]); setTimeout(() => setTransitioning(false), 20); }, 180); } };
+
+  const toggleSection = (key) => setExpandedSections(p => ({ ...p, [key]: !p[key] }));
 
   const note = NOTES[currentNote];
   const backlinks = Object.values(NOTES).filter(n => n.connections.includes(currentNote) && n.id !== currentNote);
+  const headings = extractHeadings(note.content);
+
+  const sidebarSections = [
+    { key: "lists", label: "Lists", items: [
+      { id: "advice", icon: "◇", title: "Advice" },
+      { id: "email", icon: "▣", title: "Email Advice" },
+      { id: "books", icon: "▢", title: "Book Shelf" },
+    ]},
+    { key: "school", label: "School", items: [
+      { id: "school_rec", icon: "★", title: "My #1 Recommendation" },
+      { id: "best_classes", icon: "◈", title: "Best Classes" },
+      { id: "school_lessons", icon: "◇", title: "Lessons" },
+      { id: "school_takeaways", icon: "△", title: "Key Takeaways" },
+    ]},
+    { key: "work", label: "Work", items: [
+      { id: "work", icon: "⬡", title: "Work Experience" },
+    ]},
+    { key: "ai", label: "AI", items: [
+      { id: "ai", icon: "◆", title: "AI" },
+    ]},
+    { key: "life", label: "Life", items: [
+      { id: "life", icon: "☉", title: "Life" },
+    ]},
+  ];
 
   return (
     <div className={`garden ${dark ? "theme-dark" : "theme-light"}`}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
-        .theme-dark { --bg-primary:#1a1a1e; --bg-secondary:#141416; --bg-hover:#252529; --text-primary:#dcd7cd; --text-secondary:#a09a8e; --text-muted:#5a564e; --accent:#c4a882; --accent-dim:rgba(196,168,130,0.12); --border:#2a2a2e; --shadow:rgba(0,0,0,0.4); --quote-bg:rgba(196,168,130,0.05); --link-decoration:rgba(196,168,130,0.3); }
-        .theme-light { --bg-primary:#faf8f5; --bg-secondary:#f0ede8; --bg-hover:#e8e5df; --text-primary:#2a2520; --text-secondary:#6b6358; --text-muted:#a09888; --accent:#8b6f4e; --accent-dim:rgba(139,111,78,0.1); --border:#ddd8d0; --shadow:rgba(0,0,0,0.08); --quote-bg:rgba(139,111,78,0.05); --link-decoration:rgba(139,111,78,0.3); }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        :root { --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1); }
+        .theme-dark {
+          --bg-primary:#18181b; --bg-secondary:#111113; --bg-hover:#252528; --bg-elevated:#1e1e22;
+          --text-primary:#e8e4db; --text-secondary:#a8a29e; --text-muted:#57534e;
+          --accent:#d4a853; --accent-soft:rgba(212,168,83,0.15); --accent-mid:rgba(212,168,83,0.3); --accent-glow:rgba(212,168,83,0.06);
+          --border:#2a2a2e; --border-subtle:#222225; --shadow:rgba(0,0,0,0.5);
+          --quote-bg:rgba(212,168,83,0.04); --link-line:rgba(212,168,83,0.25);
+          --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+          --newsletter-bg:#1e1e22; --success-color:#6ec87a;
+        }
+        .theme-light {
+          --bg-primary:#faf9f6; --bg-secondary:#f2f0eb; --bg-hover:#e9e7e1; --bg-elevated:#fff;
+          --text-primary:#1c1917; --text-secondary:#57534e; --text-muted:#a8a29e;
+          --accent:#a07830; --accent-soft:rgba(160,120,48,0.1); --accent-mid:rgba(160,120,48,0.2); --accent-glow:rgba(160,120,48,0.04);
+          --border:#e2dfd8; --border-subtle:#ebe8e2; --shadow:rgba(0,0,0,0.06);
+          --quote-bg:rgba(160,120,48,0.04); --link-line:rgba(160,120,48,0.25);
+          --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+          --newsletter-bg:#f5f3ee; --success-color:#4a9e56;
+        }
         * { margin:0; padding:0; box-sizing:border-box; }
-        .garden { display:flex; height:100vh; background:var(--bg-primary); color:var(--text-primary); font-family:'Source Serif 4',Georgia,serif; transition:background 0.3s,color 0.3s; overflow:hidden; }
-        .sidebar { width:260px; min-width:260px; background:var(--bg-secondary); border-right:1px solid var(--border); display:flex; flex-direction:column; transition:margin-left 0.3s ease,opacity 0.3s ease; z-index:10; }
-        .sidebar.collapsed { margin-left:-260px; opacity:0; pointer-events:none; }
-        .sidebar-header { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
-        .site-name { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:4px; }
-        .site-tagline { font-size:12px; color:var(--text-muted); font-family:'IBM Plex Mono',monospace; }
-        .nav-section { padding:12px 10px; flex:1; overflow-y:auto; }
-        .nav-label { font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); padding:8px 10px 6px; }
-        .nav-item { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-secondary); transition:all 0.15s; border:none; background:none; width:100%; text-align:left; }
-        .nav-item:hover { background:var(--bg-hover); color:var(--text-primary); }
-        .nav-item.active { background:var(--accent-dim); color:var(--accent); }
-        .nav-item .icon { font-size:14px; opacity:0.6; width:18px; text-align:center; }
-        .nav-item.active .icon { opacity:1; }
-        .sidebar-footer { padding:12px 10px; border-top:1px solid var(--border); display:flex; gap:4px; }
-        .footer-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:8px; border-radius:6px; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-muted); background:none; border:1px solid transparent; transition:all 0.15s; }
-        .footer-btn:hover { background:var(--bg-hover); color:var(--text-primary); border-color:var(--border); }
-        .footer-btn.active { background:var(--accent-dim); color:var(--accent); border-color:var(--accent); }
+        .garden { display:flex; height:100vh; background:var(--bg-primary); color:var(--text-primary); font-family:'Source Serif 4',Georgia,serif; overflow:hidden; }
+        .garden::after { content:""; position:fixed; inset:0; background:var(--grain); pointer-events:none; z-index:9999; }
+
+        /* ── Sidebar ── */
+        .sidebar { width:272px; min-width:272px; background:var(--bg-secondary); border-right:1px solid var(--border); display:flex; flex-direction:column; transition:transform 0.4s var(--ease-out-expo); z-index:10; }
+        .sidebar.collapsed { transform:translateX(-272px); }
+
+        .sidebar-profile { padding:28px 22px 20px; border-bottom:1px solid var(--border); display:flex; flex-direction:column; align-items:center; text-align:center; }
+        .profile-pic { width:72px; height:72px; border-radius:50%; background:var(--accent-mid); border:2.5px solid var(--accent); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:28px; font-weight:800; color:var(--accent); margin-bottom:12px; overflow:hidden; }
+        .profile-pic img { width:100%; height:100%; object-fit:cover; }
+        .profile-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--text-primary); letter-spacing:-0.02em; }
+        .profile-tag { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-muted); letter-spacing:0.03em; margin-top:4px; }
+
+        .nav-area { flex:1; overflow-y:auto; padding:6px 10px; }
+        .nav-section-row { display:flex; align-items:center; cursor:pointer; padding:10px 12px 4px; transition:color 0.15s; }
+        .nav-section-row:hover .nav-group { color:var(--text-secondary); }
+        .nav-group { font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-muted); flex:1; transition:color 0.15s; }
+        .nav-chevron { font-size:9px; color:var(--text-muted); transition:transform 0.2s; }
+        .nav-chevron.open { transform:rotate(90deg); }
+        .nav-items { overflow:hidden; transition:max-height 0.3s var(--ease-out-expo); }
+        .nav-btn { display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:7px; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--text-secondary); transition:all 0.15s; border:none; background:none; width:100%; text-align:left; }
+        .nav-btn:hover { background:var(--bg-hover); color:var(--text-primary); }
+        .nav-btn.active { background:var(--accent-soft); color:var(--accent); }
+        .nav-icon { font-size:12px; opacity:0.5; width:16px; text-align:center; }
+        .nav-btn.active .nav-icon { opacity:1; }
+
+        .home-btn { margin:4px 10px 2px; }
+
+        .sidebar-foot { padding:10px; border-top:1px solid var(--border); display:flex; gap:4px; }
+        .foot-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:5px; padding:8px; border-radius:7px; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-muted); background:none; border:1px solid transparent; transition:all 0.2s; }
+        .foot-btn:hover { background:var(--bg-hover); color:var(--text-primary); border-color:var(--border); }
+
+        /* ── Main ── */
         .main { flex:1; display:flex; flex-direction:column; min-width:0; }
-        .topbar { display:flex; align-items:center; justify-content:space-between; padding:0 24px; height:48px; border-bottom:1px solid var(--border); flex-shrink:0; }
-        .topbar-left { display:flex; align-items:center; gap:8px; }
-        .top-btn { width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:6px; cursor:pointer; color:var(--text-muted); background:none; border:none; font-size:16px; transition:all 0.15s; }
-        .top-btn:hover { background:var(--bg-hover); color:var(--text-primary); }
-        .top-btn:disabled { opacity:0.25; cursor:default; }
-        .top-btn:disabled:hover { background:none; color:var(--text-muted); }
-        .breadcrumb { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-muted); margin-left:8px; }
-        .breadcrumb span { color:var(--text-secondary); }
+        .topbar { display:flex; align-items:center; padding:0 24px; height:50px; border-bottom:1px solid var(--border); flex-shrink:0; background:var(--bg-secondary); }
+        .topbar-left { display:flex; align-items:center; gap:6px; }
+        .tb { width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:6px; cursor:pointer; color:var(--text-muted); background:none; border:none; font-size:15px; transition:all 0.15s; }
+        .tb:hover { background:var(--bg-hover); color:var(--text-primary); }
+        .tb:disabled { opacity:0.2; cursor:default; } .tb:disabled:hover { background:none; }
+        .crumb { font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-muted); margin-left:8px; }
+        .crumb span { color:var(--text-secondary); }
+
+        .content-layout { flex:1; display:flex; overflow:hidden; }
         .content-area { flex:1; overflow-y:auto; scroll-behavior:smooth; }
-        .content-inner { max-width:720px; margin:0 auto; padding:48px 40px 120px; }
-        .md-h1 { font-size:32px; font-weight:700; line-height:1.25; margin-bottom:8px; letter-spacing:-0.02em; color:var(--text-primary); }
-        .md-h2 { font-size:22px; font-weight:600; margin-top:32px; margin-bottom:8px; color:var(--text-primary); }
-        .md-h3 { font-size:17px; font-weight:600; margin-top:24px; margin-bottom:6px; color:var(--text-primary); }
-        .md-p { font-size:16px; line-height:1.75; color:var(--text-secondary); margin-bottom:2px; }
-        .md-quote { border-left:2px solid var(--accent); padding:12px 20px; margin:16px 0; background:var(--quote-bg); border-radius:0 6px 6px 0; font-style:italic; color:var(--text-secondary); line-height:1.7; }
-        .md-hr { border:none; height:1px; background:var(--border); margin:28px 0; }
-        .md-li { font-size:16px; line-height:1.75; color:var(--text-secondary); padding-left:20px; position:relative; margin-bottom:2px; }
-        .md-li::before { content:"·"; position:absolute; left:6px; color:var(--accent); font-weight:bold; }
-        .md-arrow { font-size:16px; line-height:1.75; color:var(--text-secondary); padding-left:4px; margin-bottom:2px; }
+        .content-transition { transition:opacity 0.18s ease, transform 0.18s ease; }
+        .content-transition.out { opacity:0; transform:translateY(8px); }
+        .content-transition.in { opacity:1; transform:translateY(0); }
+        .content-inner { max-width:720px; margin:0 auto; padding:48px 44px 40px; }
+
+        /* ── TOC ── */
+        .toc-panel { width:200px; min-width:200px; padding:24px 16px 24px 0; overflow-y:auto; border-left:1px solid var(--border); }
+        .toc-title { font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); padding:0 12px 10px; }
+        .toc-item { display:block; padding:5px 12px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); cursor:pointer; border:none; background:none; width:100%; text-align:left; border-radius:4px; transition:all 0.15s; line-height:1.4; }
+        .toc-item:hover { color:var(--accent); background:var(--accent-glow); }
+
+        /* ── Typography ── */
+        .md-h1 { font-family:'Playfair Display',serif; font-size:36px; font-weight:800; line-height:1.15; margin-bottom:10px; letter-spacing:-0.03em; color:var(--text-primary); }
+        .md-h2 { font-family:'Playfair Display',serif; font-size:23px; font-weight:700; margin-top:36px; margin-bottom:10px; color:var(--text-primary); letter-spacing:-0.02em; }
+        .md-h3 { font-family:'Playfair Display',serif; font-size:17px; font-weight:600; margin-top:24px; margin-bottom:6px; color:var(--text-primary); }
+        .md-p { font-size:16.5px; line-height:1.78; color:var(--text-secondary); margin-bottom:2px; }
+        .md-quote { border-left:3px solid var(--accent); padding:14px 22px; margin:20px 0; background:var(--quote-bg); border-radius:0 8px 8px 0; font-style:italic; color:var(--text-secondary); line-height:1.7; font-size:16px; }
+        .md-hr { border:none; height:1px; background:var(--border); margin:32px 0; }
+        .md-li { font-size:16.5px; line-height:1.78; color:var(--text-secondary); padding-left:22px; position:relative; margin-bottom:3px; }
+        .md-li::before { content:""; position:absolute; left:7px; top:12px; width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:0.6; }
+        .md-arrow { font-size:16.5px; line-height:1.78; color:var(--text-secondary); padding-left:4px; margin-bottom:3px; }
         .md-spacer { height:8px; }
-        .wiki-link { color:var(--accent); cursor:pointer; text-decoration:none; border-bottom:1px solid var(--link-decoration); transition:all 0.15s; font-weight:500; }
+        .wiki-link { color:var(--accent); cursor:pointer; text-decoration:none; border-bottom:1.5px solid var(--link-line); transition:all 0.2s; font-weight:600; }
         .wiki-link:hover { border-bottom-color:var(--accent); }
-        .inline-code { font-family:'IBM Plex Mono',monospace; font-size:14px; background:var(--accent-dim); padding:2px 6px; border-radius:3px; color:var(--accent); }
-        .backlinks { margin-top:56px; padding-top:24px; border-top:1px solid var(--border); }
-        .backlinks-title { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
-        .backlink-item { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:5px; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); background:var(--accent-dim); border:none; margin:0 6px 6px 0; transition:all 0.15s; }
-        .backlink-item:hover { background:var(--bg-hover); }
-        .graph-panel { padding:24px; border-top:1px solid var(--border); background:var(--bg-secondary); }
-        .graph-title { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px; }
-        @media (max-width:768px) { .sidebar { position:absolute; height:100%; box-shadow:4px 0 24px var(--shadow); } .sidebar.collapsed { margin-left:-260px; } .content-inner { padding:32px 20px 100px; } .md-h1 { font-size:26px; } }
+
+        /* ── Backlinks ── */
+        .backlinks { margin-top:48px; padding-top:24px; border-top:1px solid var(--border); }
+        .backlinks-label { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+        .backlink { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--accent); background:var(--accent-soft); border:none; margin:0 6px 6px 0; transition:all 0.2s; }
+        .backlink:hover { background:var(--accent-mid); }
+
+        /* ── Newsletter ── */
+        .page-footer { max-width:720px; margin:0 auto; padding:0 44px 80px; }
+        .newsletter { background:var(--newsletter-bg); border:1px solid var(--border); border-radius:14px; padding:32px; margin-top:48px; text-align:center; }
+        .newsletter-badge { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+        .newsletter-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text-primary); margin-bottom:8px; }
+        .newsletter-desc { font-size:14.5px; color:var(--text-muted); line-height:1.6; margin-bottom:20px; max-width:400px; margin-left:auto; margin-right:auto; }
+        .newsletter-form { display:flex; gap:8px; max-width:380px; margin:0 auto; }
+        .newsletter-input { flex:1; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:var(--bg-primary); font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-primary); outline:none; transition:border-color 0.2s; }
+        .newsletter-input:focus { border-color:var(--accent); }
+        .newsletter-input::placeholder { color:var(--text-muted); }
+        .newsletter-btn { padding:10px 22px; border-radius:8px; border:none; background:var(--accent); color:var(--bg-primary); font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+        .newsletter-btn:hover { opacity:0.9; transform:translateY(-1px); }
+        .newsletter-success { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--success-color); display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; }
+        .newsletter-check { font-size:18px; }
+
+        /* ── Contact ── */
+        .contact { text-align:center; margin-top:36px; }
+        .contact-line { height:1px; background:var(--border); margin-bottom:28px; }
+        .contact-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--text-primary); margin-bottom:6px; }
+        .contact-desc { font-size:14px; color:var(--text-muted); margin-bottom:16px; }
+        .contact-links { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+        .contact-link { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); text-decoration:none; padding:8px 16px; border-radius:7px; border:1px solid var(--accent-mid); background:var(--accent-soft); transition:all 0.2s; }
+        .contact-link:hover { background:var(--accent-mid); transform:translateY(-1px); }
+
+        @media (max-width:900px) { .toc-panel { display:none; } }
+        @media (max-width:768px) { .sidebar { position:absolute; height:100%; box-shadow:8px 0 32px var(--shadow); } .sidebar.collapsed { transform:translateX(-272px); } .content-inner { padding:28px 20px 40px; } .page-footer { padding:0 20px 60px; } .md-h1 { font-size:28px; } .newsletter-form { flex-direction:column; } }
       `}</style>
 
+      {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? "" : "collapsed"}`}>
-        <div className="sidebar-header">
-          <div className="site-name">✦ Maxx Yung</div>
-          <div className="site-tagline">digital garden</div>
+        <div className="sidebar-profile">
+          <div className="profile-pic">M</div>
+          <div className="profile-name">Maxx Yung</div>
+          <div className="profile-tag">builder · researcher · writer</div>
         </div>
-        <nav className="nav-section">
-          <div className="nav-label">Home</div>
-          <button className={`nav-item ${currentNote === "welcome" ? "active" : ""}`} onClick={() => navigate("welcome")}><span className="icon">✦</span> Welcome</button>
-
-          <div className="nav-label">Lists</div>
-          {["advice","apps","email","books"].map(id => (
-            <button key={id} className={`nav-item ${currentNote === id ? "active" : ""}`} onClick={() => navigate(id)}>
-              <span className="icon">{NOTES[id].icon}</span> {NOTES[id].title}
-            </button>
-          ))}
-
-          <div className="nav-label">Venture</div>
-          <button className={`nav-item ${currentNote === "venture" ? "active" : ""}`} onClick={() => navigate("venture")}><span className="icon">◈</span> Venture Writing</button>
-
-          <div className="nav-label">Blog</div>
-          {["blog","countersignaling"].map(id => (
-            <button key={id} className={`nav-item ${currentNote === id ? "active" : ""}`} onClick={() => navigate(id)}>
-              <span className="icon">{NOTES[id].icon}</span> {NOTES[id].title}
-            </button>
+        <nav className="nav-area">
+          <div className="home-btn">
+            <button className={`nav-btn ${currentNote === "welcome" ? "active" : ""}`} onClick={() => navigate("welcome")}><span className="nav-icon">✦</span> Welcome</button>
+          </div>
+          {sidebarSections.map(sec => (
+            <div key={sec.key}>
+              <div className="nav-section-row" onClick={() => toggleSection(sec.key)}>
+                <div className="nav-group">{sec.label}</div>
+                <span className={`nav-chevron ${expandedSections[sec.key] ? "open" : ""}`}>▶</span>
+              </div>
+              <div className="nav-items" style={{ maxHeight: expandedSections[sec.key] ? `${sec.items.length * 40}px` : 0 }}>
+                {sec.items.map(item => (
+                  <button key={item.id} className={`nav-btn ${currentNote === item.id ? "active" : ""}`} onClick={() => navigate(item.id)}>
+                    <span className="nav-icon">{item.icon}</span> {item.title}
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
-        <div className="sidebar-footer">
-          <button className={`footer-btn ${showGraph ? "active" : ""}`} onClick={() => setShowGraph(!showGraph)}>{showGraph ? "◉" : "○"} Graph</button>
-          <button className="footer-btn" onClick={() => setDark(!dark)}>{dark ? "☀" : "☾"} {dark ? "Light" : "Dark"}</button>
+        <div className="sidebar-foot">
+          <button className="foot-btn" onClick={() => setDark(!dark)}>{dark ? "☀ Light" : "☾ Dark"}</button>
         </div>
       </aside>
 
+      {/* Main */}
       <main className="main">
         <div className="topbar">
           <div className="topbar-left">
-            <button className="top-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>☰</button>
-            <button className="top-btn" onClick={goBack} disabled={historyIdx <= 0}>←</button>
-            <button className="top-btn" onClick={goForward} disabled={historyIdx >= history.length - 1}>→</button>
-            <div className="breadcrumb">
-              {note.section && <><span>{note.section}</span> / </>}{note.title}
-            </div>
+            <button className="tb" onClick={() => setSidebarOpen(!sidebarOpen)}>☰</button>
+            <button className="tb" onClick={goBack} disabled={historyIdx <= 0}>←</button>
+            <button className="tb" onClick={goForward} disabled={historyIdx >= history.length - 1}>→</button>
+            <div className="crumb">{note.section && <><span>{note.section}</span> / </>}{note.title}</div>
           </div>
         </div>
-        <div className="content-area" ref={contentRef}>
-          <div className="content-inner">
-            {renderContent(note.content, navigate)}
-            {backlinks.length > 0 && (
-              <div className="backlinks">
-                <div className="backlinks-title">Linked to this note</div>
-                {backlinks.map(bl => <button key={bl.id} className="backlink-item" onClick={() => navigate(bl.id)}>{bl.icon} {bl.title}</button>)}
-              </div>
-            )}
+        <div className="content-layout">
+          <div className="content-area" ref={contentRef}>
+            <div className={`content-inner content-transition ${transitioning ? "out" : "in"}`}>
+              {renderContent(note.content, navigate)}
+              {backlinks.length > 0 && (
+                <div className="backlinks">
+                  <div className="backlinks-label">Linked to this note</div>
+                  {backlinks.map(bl => <button key={bl.id} className="backlink" onClick={() => navigate(bl.id)}>{bl.icon} {bl.title}</button>)}
+                </div>
+              )}
+            </div>
+            <PageFooter />
           </div>
-          {showGraph && (
-            <div className="graph-panel">
-              <div className="graph-title">Graph View</div>
-              <GraphView notes={NOTES} currentNote={currentNote} onNavigate={navigate} />
+          {headings.length > 2 && (
+            <div className="toc-panel">
+              <div className="toc-title">On this page</div>
+              {headings.map(h => (
+                <button key={h.id} className="toc-item" onClick={() => { document.getElementById(h.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{h.text}</button>
+              ))}
             </div>
           )}
         </div>
